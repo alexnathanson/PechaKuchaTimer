@@ -1,11 +1,16 @@
 /*
 	Pacha Kucha timer
+
+	to do:
+	mute for each slide or final sound\
+	
 */
 
 let sTime, slideNum;
 let started = false;
 let startButton;
 let nextSound;
+let deck,num,totTime,remTime;
 
 
 function preload() {
@@ -14,23 +19,27 @@ function preload() {
 
 
 function setup(){
-	createCanvas(windowWidth, 600);
+	//createCanvas(windowWidth, 400);
+
 	slideNum = 0;
 	startButton = createButton("Start Presentation");
 	startButton.mousePressed(start);
-	startButton.position(100, 250);
+	deckURL = createInput("input deck url");
+	deck = document.getElementById("deck");
+
+	num = document.getElementById("num")
+	totTime = document.getElementById("totTime");
+	remTime = document.getElementById("remTime");
 	textSize(32);
 }
 
 function draw(){
-	background(255);
-	text("Pecha Kucha Timer", 100, 50);
-	text("Slide # " + slideNum, 100, 100);
+	num.innerHTML="Slide # " + slideNum;
 	if(started == true){
 		let ellapsedSeconds = floor((millis()-sTime)*0.001);
 		let totalEllapsedSeconds = ((slideNum-1)*20)+ellapsedSeconds;
-		text('Total Remaining Time: ' + String(400-totalEllapsedSeconds),100,150);
-		text('Time Remaining: ' + String(20-ellapsedSeconds), 100,200);
+		totTime.innerHTML='Total Remaining Time: ' + String(400-totalEllapsedSeconds);
+		remTime.innerHTML='Time Remaining: ' + String(20-ellapsedSeconds);
 		if(ellapsedSeconds>19 && totalEllapsedSeconds < 400){
 			next();
 		} else if (totalEllapsedSeconds >= 400){
@@ -40,6 +49,8 @@ function draw(){
 }
 
 function start(){
+	console.log(deckURL.value());
+	deck.src=deckURL.value() + '/embed?start=false&loop=false&delayms=30000';
 	started = true;
 	slideNum = 0;
 	sTime = millis();
@@ -67,15 +78,3 @@ function end(){
  		alert('end of presentation');
 	},5000);
 }
-
-/*function pause(){
-	pauseB == !pauseB;
-
-	if(pauseB == true){
-		pauseTime = millis();
-		console.log('paused');
-	} else {
-		pauseTime = millis() - pauseTime;
-		pauseSeconds = floor(pauseTime*0.001);
-	}
-}*/
