@@ -29,7 +29,7 @@ function draw(){
 	if(started == true){
 		let ellapsedSeconds = floor((millis()-sTime)*0.001);
 		let totalEllapsedSeconds = ((slideNum-1)*20)+ellapsedSeconds;
-		text('Total Remained Time: ' + String(400-totalEllapsedSeconds),100,150);
+		text('Total Remaining Time: ' + String(400-totalEllapsedSeconds),100,150);
 		text('Time Remaining: ' + String(20-ellapsedSeconds), 100,200);
 		if(ellapsedSeconds>19 && totalEllapsedSeconds < 400){
 			next();
