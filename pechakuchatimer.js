@@ -18,6 +18,7 @@ function setup(){
 	slideNum = 0;
 	startButton = createButton("Start Presentation");
 	startButton.mousePressed(start);
+	startButton.position(100, 250);
 	textSize(32);
 }
 
